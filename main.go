@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mcasperson/ServiceNowMock/internal/application/handler"
@@ -56,7 +57,12 @@ func main() {
 
 	router.PATCH("/api/sn_chg_rest/change/:id", handler.ChangeIdPatch)
 
-	if err := router.Run(":8086"); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8086"
+	}
+
+	if err := router.Run(":" + port); err != nil {
 		log.Fatal("Failed to start server: ", err)
 	}
 }
