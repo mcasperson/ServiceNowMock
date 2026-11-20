@@ -37,6 +37,7 @@ func logRequests() gin.HandlerFunc {
 
 func main() {
 	router := gin.New()
+	router.RemoveExtraSlash = true
 	router.Use(logRequests())
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
